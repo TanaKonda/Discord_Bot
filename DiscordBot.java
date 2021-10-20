@@ -125,8 +125,8 @@ public class DiscordBot {
             if (validUser(event.getMember().get().getId().toString()) && event.getMessage().getContent().contains("<@!897566211074842624>")) {
                 return event.getMessage().getChannel()
                         .flatMap(channel -> channel.createMessage(spec -> {
-                            spec.setContent(event.getMember().get().getDisplayName() + " has summoned me.");
-                            spec.setAllowedMentions(AllowedMentions.builder().build());
+                            spec.setContent(event.getMember().get().getNicknameMention() + " has summoned me.");
+                            spec.setAllowedMentions(AllowedMentions.builder().allowUser(event.getMember().get().getId()).build());
                             spec.setMessageReference(event.getMessage().getId());
                         }));
             }
