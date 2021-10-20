@@ -135,8 +135,12 @@ public class DiscordBot {
 
         // if post starts with a word made up of the letter 'o' then add the 'eyes' standard emoji
         client.getEventDispatcher().on(MessageCreateEvent.class)
-                .filter(event -> validUser(event.getMember().get().getId().toString()))
-                .map(MessageCreateEvent::getMessage)
+                .filter(event -> {
+                    if(event.getMember().isPresent()) {
+                        return validUser(event.getMember().get().getId().toString());
+                    }
+                    return true;
+                })                .map(MessageCreateEvent::getMessage)
                 .filter(message -> startsWithO(message.getContent()))
                 .flatMap(message -> message.addReaction(ReactionEmoji.unicode("\uD83D\uDC40")))
                 .subscribe();
@@ -144,7 +148,12 @@ public class DiscordBot {
 
         // if post contains the word 'hug' (after sanitizing) then add a custom animated emoji
         client.getEventDispatcher().on(MessageCreateEvent.class)
-                .filter(event -> validUser(event.getMember().get().getId().toString()))
+                .filter(event -> {
+                    if(event.getMember().isPresent()) {
+                        return validUser(event.getMember().get().getId().toString());
+                    }
+                    return true;
+                })
                 .map(MessageCreateEvent::getMessage)
                 .filter(message -> removeEmojisAndUsernames(message.getContent()).contains("hug"))
                 .flatMap(message -> message.addReaction(ReactionEmoji.of(856885630507548702L, "aww", true)))
