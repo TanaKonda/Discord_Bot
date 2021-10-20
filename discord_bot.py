@@ -68,7 +68,7 @@ async def on_message(message):  # when any message is posted on a channel the bo
         originalChannelId = originalChannelId[:originalChannelId.index('.')]
         await (await (await client.fetch_channel(originalChannelId)).fetch_message(originalMessageId)).reply(message.content)
 
-    if message.content.lower().startswith('greetme'): #reply to user with a greeting in a random language
+    if message.content.lower().startswith('!greetme'): #reply to user with a greeting in a random language
         await message.reply(message.author.display_name+', '+greet(), mention_author=True)
 
     if message.content.lower().startswith('!showmegreetings'): # exposes the greetings available
