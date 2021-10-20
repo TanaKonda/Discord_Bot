@@ -15,7 +15,7 @@ Hosting remotely is important to ensure the bot is up 24/7. You will want to do 
 
 **Minimum Requirements** (higher versions are fine too): \
 For Java: Java 8 + Maven 2 \
-For Python: Python 3.5.3 + discord.py 1.7.3 \
+For Python: Python 3.5.3 + discord.py 1.7.3 + random2.py 1.0.1 \
 &nbsp;&nbsp;&nbsp;&nbsp;See [Discord.py Docs](https://discordpy.readthedocs.io/en/latest/intro.html) for pip commands.
 
 In order to use this functionality for your own bot:

@@ -1,10 +1,9 @@
 import discord
+import random
 
 token = 'replace this with your token' # without this the code cannot connect to your bot
 
 client = discord.Client()
-
-randomNumber = 0
 
 ignoreUsers = [235148962103951360] # get the id of the user whose posts you want to ignore by doing \ @User in a private channel or use developer mode in Discord
 
@@ -34,14 +33,6 @@ def ignoreCertainUsers(postAuthorId): # don't respond to posts from specified us
         return True
     return False
 
-
-def greet(): # cycle through a set of greetings
-    global randomNumber
-    randomNumber += 1
-    if(randomNumber >= len(greetings)):
-        randomNumber = 0
-    return greetings[randomNumber]
-
 @client.event
 async def on_ready():   # when the connection is established
     print('We have logged in as {0.user}'.format(client))
@@ -69,7 +60,7 @@ async def on_message(message):  # when any message is posted on a channel the bo
         await (await (await client.fetch_channel(originalChannelId)).fetch_message(originalMessageId)).reply(message.content)
 
     if message.content.lower().startswith('!greetme'): #reply to user with a greeting in a random language
-        await message.reply(message.author.display_name+', '+greet(), mention_author=True)
+        await message.reply(message.author.display_name+', '+greetings[random.randint(0, len(greetings))], mention_author=True)
 
     if message.content.lower().startswith('!showmegreetings'): # exposes the greetings available
             await message.reply(str(greetings))
