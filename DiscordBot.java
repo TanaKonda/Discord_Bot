@@ -72,7 +72,7 @@ public class DiscordBot {
             if (event.getMessage().getContent().startsWith("!anonfeedback")) {
                 return client.getChannelById(Snowflake.of("856418867525582849")) // replace this channel id with one from your server (preferably a private channel with limited access)
                         .ofType(MessageChannel.class)
-                        .flatMap(channel -> channel.createMessage(spec -> spec.setContent("Anon feedback: " + event.getMessage().getContent() + "|| ChannelId:" + event.getMessage().getChannelId() + ". ReplyId:" + event.getMessage().getId() + ".||")));
+                        .flatMap(channel -> channel.createMessage(spec -> spec.setContent("Anon feedback: " + event.getMessage().getContent() + "|| ChannelId:" + event.getMessage().getChannelId().asLong() + ". ReplyId:" + event.getMessage().getId().asLong() + ".||")));
             }
             return Mono.empty();
         }).subscribe();
@@ -83,8 +83,8 @@ public class DiscordBot {
             if (event.getMessage().getContent().startsWith("!replytoanonfeedback")) {
                 String replyToSend = event.getMessage().getContent();
                 String anonMessage = event.getMessage().getReferencedMessage().get().getContent();
-                String originalChannelId = anonMessage.substring(anonMessage.indexOf("| ChannelId:"),anonMessage.indexOf(". ReplyId:"));
-                String originalMessageId = anonMessage.substring(anonMessage.indexOf(". ReplyId:"),anonMessage.indexOf(".||"));
+                String originalChannelId = anonMessage.substring(anonMessage.indexOf("|| ChannelId:")+13,anonMessage.indexOf(". ReplyId:"));
+                String originalMessageId = anonMessage.substring(anonMessage.indexOf(". ReplyId:")+10,anonMessage.indexOf(".||"));
                 return client.getChannelById(Snowflake.of(originalChannelId))
                         .ofType(MessageChannel.class)
                         .flatMap(channel -> channel.createMessage(spec -> {
