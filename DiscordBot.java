@@ -113,7 +113,7 @@ public class DiscordBot {
             if (validUser(event.getMember().get().getId().toString()) && event.getMessage().getContent().startsWith("!showmegreetings")) {
                 return event.getMessage().getChannel()
                         .flatMap(channel -> channel.createMessage(spec -> {
-                            spec.setContent(String.join("", greetings));
+                            spec.setContent(String.join(", ", greetings));
                             spec.setMessageReference(event.getMessage().getId());
                         }));
             }
