@@ -1,9 +1,15 @@
 # Discord_Bot
-An abstracted public version of a private Discord Bot I've written 
+An abstracted public version of a private Discord Bot I've written. 
 
-I've provided the code in two languages: Java and Python. I started out writing my bot in Java but switched to Python for memory reasons. The Java version was using a lot more RAM (160MB vs 25 MB). The Python version was therefore easier to host remotely for free.
+Features include:
+* Letting users submit anonymous feedback by DMing the bot with a command
+* Letting an admin/mod reply to this feedback while maintaining anonymity
+* Replying to a user with their display name and a random greeting phrase
+* Respond if your bot is mentioned (with an @)
+* Add (both standard and custom) emoji reactions to posts based on keywords
+* Sanitize input (ignore emojinames and usernames when looking for keywords in posts)
 
-
+I've provided the code in two languages: _Java_ and _Python_. I started out writing my bot in Java, but switched to Python for memory reasons. The Java version was using a lot more RAM (160MB vs 25 MB). The Python version was therefore easier to host remotely for free.
 
 Hosting remotely is important to ensure the bot is up 24/7. You will want to do all your beta testing on your computer first though.
 
