@@ -11,11 +11,10 @@ import reactor.core.publisher.Mono;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.IntStream;
 
 public class DiscordBot {
-
-    private static int randomNumber = 0;
 
     private static final List<String> ignoreUsers = Arrays.asList("235148962103951360", "897566211074842624"); // get the id of the user whose posts you want to ignore by doing \ @User in a private channel or use developer mode in Discord
     // you will want to include the id of your bot here so it doesn't respond to its own posts
@@ -45,14 +44,6 @@ public class DiscordBot {
 
     private static boolean validUser(String postAuthorId) { // don't respond to posts from specified users
         return !ignoreUsers.contains(postAuthorId);
-    }
-
-    private static String greet() { // cycle through a set of greetings
-        randomNumber++;
-        if (randomNumber >= greetings.size()) {
-            randomNumber = 0;
-        }
-        return greetings.get(randomNumber);
     }
 
     private final static String token = "replace this with your token"; // without this the code cannot connect to your bot
@@ -100,7 +91,7 @@ public class DiscordBot {
             if (validUser(event.getMember().get().getId().toString()) && event.getMessage().getContent().startsWith("!greetme")) {
                 return event.getMessage().getChannel()
                         .flatMap(channel -> channel.createMessage(spec -> {
-                            spec.setContent(event.getMember().get().getDisplayName() + ", " + greet());
+                            spec.setContent(event.getMember().get().getDisplayName() + ", " + greetings.get(new Random().ints(1, 0, greetings.size()).findFirst().getAsInt()));
                             spec.setAllowedMentions(AllowedMentions.builder().build());
                             spec.setMessageReference(event.getMessage().getId());
                         }));
